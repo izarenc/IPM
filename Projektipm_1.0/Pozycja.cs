@@ -1,18 +1,24 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Xml.Linq;
-using Windows.ApplicationModel;
 
 namespace Projektipm_1._0
 {
-    class Pozycja
+    public class Pozycja
     {
-        string nazwa;
-        int przelicznik;
-        string kod;
-        int kurs;
+        public string nazwa;
+        public float przelicznik;
+        public string kod;
+        public float kurs;
+        public float kurs_oryginalny;
+        //public DateTime data;
+
+        public Pozycja(string a, float b, string c, float d)
+        {
+            nazwa = a;
+            przelicznik = b;
+            kod = c;
+            kurs = d*b;
+            kurs_oryginalny = d;
+        }
+        
     }
 }

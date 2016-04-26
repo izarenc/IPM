@@ -3,6 +3,6 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:Projektipm_1._0"
-    RequestedTheme="Dark">
+    RequestedTheme="Light">
 
 </Application>
