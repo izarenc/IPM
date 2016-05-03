@@ -1,9 +1,9 @@
-﻿using System;
-using Windows.UI.Xaml.Controls;
+﻿using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Navigation;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Threading.Tasks;
+using Windows.UI.Xaml.Navigation;
 
 namespace Projektipm_1._0
 {
@@ -11,33 +11,37 @@ namespace Projektipm_1._0
     {
         public Kursy()
         {
-            this.InitializeComponent();
-            funkcja();
+            InitializeComponent();
         }
 
-        public ObservableCollection<DataPro> datyKursow;
-
-        private async void funkcja()
+        protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            if (WczytaneDane.daty_kursow)
+            Funkcja();
+        }
+
+        private ObservableCollection<DataPro> DatyKursow = new ObservableCollection<DataPro>();
+
+        private void Funkcja()
+        {
+            if (!WczytaneDane.daty_kursow)
             {
-                datyKursow = new ObservableCollection<DataPro>(WczytaneDane.DATY_KURSOW.Reverse());
-                System.Diagnostics.Debug.WriteLine("if");
-            }
-            else
-            {
-                await WczytaneDane.wczytajDaneNaglowkow();
+                WczytaneDane.wczytajDaneNaglowkow();
 
                 System.Diagnostics.Debug.WriteLine("else");
-                System.Diagnostics.Debug.WriteLine(WczytaneDane.DATY_KURSOW.Count());
-                datyKursow = new ObservableCollection<DataPro>(WczytaneDane.DATY_KURSOW.Reverse());
+                System.Diagnostics.Debug.WriteLine(WczytaneDane.DATY_KURSOW.Count);
+            }
+            foreach (var i in WczytaneDane.DATY_KURSOW.Reverse())
+            {
+                DatyKursow.Add(i);
             }
         }
 
-        private void dalekoJeszcze(object sender, TappedRoutedEventArgs e)
+        private void DalekoJeszcze(object sender, TappedRoutedEventArgs e)
         {
             //System.Diagnostics.Debug.WriteLine((sender as TextBlock).Tag.ToString());
-            Frame.Navigate(typeof(Root), (sender as TextBlock).Tag.ToString());
+            var textBlock = sender as TextBlock;
+            if (textBlock != null)
+                Frame.Navigate(typeof(Root), textBlock.Tag.ToString());
         }
 
         ////override

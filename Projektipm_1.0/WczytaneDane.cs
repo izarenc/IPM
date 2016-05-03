@@ -6,14 +6,13 @@ using System.Text;
 using System.Xml.Linq;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
-using System.Threading;
 
 namespace Projektipm_1._0
 {
     class WczytaneDane
     {
-        public static Boolean daty_kursow = false;
-        public static Boolean kursy = false;
+        public static bool daty_kursow = false;
+        public static bool kursy = false;
 
         public static ObservableCollection<DataPro> DATY_KURSOW = new ObservableCollection<DataPro>();
             //zbindowane w xaml: ładna data + indeks + data data4
@@ -33,17 +32,17 @@ namespace Projektipm_1._0
         {
             System.Diagnostics.Debug.WriteLine("Wczytuje naglowki!");
             daty_kursow = true;
-            string page = "http://www.nbp.pl/kursy/xml/dir.txt";
+            const string page = "http://www.nbp.pl/kursy/xml/dir.txt";
 
-            using (HttpClient client = new HttpClient())
-            using (HttpResponseMessage response = await client.GetAsync(page))
-            using (HttpContent content = response.Content)
+            using (var client = new HttpClient())
+            using (var response = client.GetAsync(page).Result)
+            using (var content = response.Content)
             {
-                string result = await content.ReadAsStringAsync();
+                var result =  content.ReadAsStringAsync().Result;
 
-                string[] words = result.Split(new char[0], StringSplitOptions.RemoveEmptyEntries);
+                var words = result.Split(new char[0], StringSplitOptions.RemoveEmptyEntries);
                 //splitting at white character
-                foreach (string it in words)
+                foreach (var it in words)
                 {
                     if ('a'.Equals(it[0]))
                     {
@@ -135,7 +134,7 @@ namespace Projektipm_1._0
             System.Diagnostics.Debug.WriteLine("Wczytano kurs");
         }
 
-        public static async Task wczytajKursyWaluta(string adr)
+        public static async void wczytajKursyWaluta(string adr)
         {
             if (KURSY_WALUTA.ContainsKey(adr)) return;
             KURSY_WALUTA.Add(adr, new List<DaneWykres>());
@@ -171,25 +170,6 @@ namespace Projektipm_1._0
         public static string mojaPierwszaFunkcjaWCudownymJezyku(string s)
         {
             return s.Remove(1).ToUpper() + s.Substring(1);
-        }
-    }
-
-
-    public class InputData
-    {
-        public string index;
-        public DateTime data;
-        public float value;
-        public string nazwa;
-        public float przelicznik;
-
-        public InputData(string i, DateTime d, float v, string n, float p)
-        {
-            index = i;
-            data = d;
-            value = v;
-            nazwa = n;
-            przelicznik = p;
         }
     }
 }

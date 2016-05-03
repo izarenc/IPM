@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Projektipm_1._0
+﻿namespace Projektipm_1._0
 {
     public class Pozycja
     {

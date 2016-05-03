@@ -1,9 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿
+
+using System;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Projektipm_1._0
 {
@@ -15,7 +13,7 @@ namespace Projektipm_1._0
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        public void NotifyPropertyChanged(String info)
+        public void NotifyPropertyChanged(string info)
         {
             if (PropertyChanged != null)
             {

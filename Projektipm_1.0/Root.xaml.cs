@@ -1,17 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.IO;
 using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
-using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using System.Net.Http;
 using System.Text;
@@ -85,9 +77,9 @@ namespace Projektipm_1._0
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            var adr = e.Parameter as String;
+            var adr = e.Parameter as string;
             System.Diagnostics.Debug.WriteLine("parametr: " + adr);
-            if (String.IsNullOrEmpty(adr))
+            if (string.IsNullOrEmpty(adr))
             {
                 funkcja();
             }

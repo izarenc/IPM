@@ -96,7 +96,7 @@ namespace Projektipm_1._0
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            var tag = e.Parameter as String;
+            var tag = e.Parameter as string;
             //System.Diagnostics.Debug.WriteLine("piekny tag");
             //System.Diagnostics.Debug.WriteLine(tag);
             loadData(tag);
