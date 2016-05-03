@@ -1,21 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
+﻿
+
+using System;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Projektipm_1._0
 {
     public class DataPro : INotifyPropertyChanged
     {
-        public string ladna_data;         //ładna data
-        public string index_data;           //raw path xml
+        public string ladna_data; //ładna data
+        public string index_data; //raw path xml
         public DateTime data_data;
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        public void NotifyPropertyChanged(String info)
+        public void NotifyPropertyChanged(string info)
         {
             if (PropertyChanged != null)
             {
@@ -30,6 +28,5 @@ namespace Projektipm_1._0
             index_data = i;
             data_data = r;
         }
-
     }
 }

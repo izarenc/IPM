@@ -1,18 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Net.Http;
-using System.Text;
-using System.Xml.Linq;
-using Windows.UI.Xaml;
+﻿using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
 namespace Projektipm_1._0
 {
     public sealed partial class MainPage : Page
     {
-       
         public MainPage()
         {
             InitializeComponent();
@@ -37,7 +29,7 @@ namespace Projektipm_1._0
 
         private void btnHistoria_Click(object sender, RoutedEventArgs e)
         {
-            container.Navigate(typeof(Root),this);
+            container.Navigate(typeof(Root), this);
         }
 
         private void btnShowPane_Click(object sender, RoutedEventArgs e)
@@ -70,5 +62,4 @@ namespace Projektipm_1._0
         public MainPage parameter1 { get; set; }
         public string parameter2 { get; set; }
     }
-
 }

@@ -1,17 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.IO;
 using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
-using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using System.Net.Http;
 using System.Text;
@@ -48,7 +40,7 @@ namespace Projektipm_1._0
                 string data = iso_8859_2.GetString(byteData);
                 XDocument loadedData = XDocument.Parse(data);
                 var a = loadedData.Descendants("pozycja").Elements();
-                
+
                 IEnumerable<Pozycja> dane = from query in loadedData.Descendants("pozycja")
                     select new Pozycja(
                         mojaPierwszaFunkcjaWCudownymJezyku(query.Element("nazwa_waluty").Value),
@@ -60,7 +52,6 @@ namespace Projektipm_1._0
                 //var temp=new Pozycja("a", 0.5F, "b", 8.0F);
                 //pozycje.Add(temp);
                 //pozycje.Remove(temp);
-
             }
         }
 
@@ -75,7 +66,7 @@ namespace Projektipm_1._0
             //pozycje.Remove(temp);
             // wczytaj kursy
         }
-        
+
 
         private void NieWiemCoRobie(object sender, TappedRoutedEventArgs e)
         {
@@ -86,9 +77,9 @@ namespace Projektipm_1._0
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            var adr = e.Parameter as String;
+            var adr = e.Parameter as string;
             System.Diagnostics.Debug.WriteLine("parametr: " + adr);
-            if (String.IsNullOrEmpty(adr))
+            if (string.IsNullOrEmpty(adr))
             {
                 funkcja();
             }

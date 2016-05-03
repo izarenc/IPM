@@ -11,23 +11,23 @@
         <ListView ItemsSource="{x:Bind pozycje}">
             <ListView.ItemContainerStyle>
                 <Style TargetType="ListViewItem">
-                    <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                    <Setter Property="HorizontalContentAlignment" Value="Stretch" />
                 </Style>
             </ListView.ItemContainerStyle>
             <ListView.ItemTemplate>
                 <DataTemplate x:DataType="local:Pozycja">
-                    
-                    <Grid >
+
+                    <Grid>
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="2*"/>
+                            <ColumnDefinition Width="2*" />
                             <!-- <ColumnDefinition Width="*"/> -->
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
                         </Grid.ColumnDefinitions>
-                        <TextBlock Tapped="NieWiemCoRobie" Tag="{x:Bind kod}"  Grid.Column="0" Text="{x:Bind nazwa}"></TextBlock>
+                        <TextBlock Tapped="NieWiemCoRobie" Tag="{x:Bind kod}" Grid.Column="0" Text="{x:Bind nazwa}" />
                         <!--  <TextBlock Grid.Column="1" Text="{x:Bind przelicznik}"></TextBlock> TAK KOMENTARZ KTORY WYMAGA WKLEPANIA 7 ZNAKOW TO JEST TO! az sie komentowac odechciewa-->
-                        <TextBlock Tapped="NieWiemCoRobie" Tag="{x:Bind kod}" Grid.Column="1" Text="{x:Bind kod}"></TextBlock>
-                        <TextBlock Tapped="NieWiemCoRobie" Tag="{x:Bind kod}" Grid.Column="2" Text="{x:Bind kurs}"></TextBlock>
+                        <TextBlock Tapped="NieWiemCoRobie" Tag="{x:Bind kod}" Grid.Column="1" Text="{x:Bind kod}" />
+                        <TextBlock Tapped="NieWiemCoRobie" Tag="{x:Bind kod}" Grid.Column="2" Text="{x:Bind kurs}" />
                     </Grid>
                 </DataTemplate>
             </ListView.ItemTemplate>

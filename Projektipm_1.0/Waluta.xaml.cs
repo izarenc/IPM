@@ -23,10 +23,10 @@ namespace Projektipm_1._0
 
         public async void loadData(string d)
         {
-            textBlock.Text = "Historia waluty " + (string)d;
+            textBlock.Text = "Historia waluty " + (string) d;
             List<DaneWykres> daneDoWykresu = new List<DaneWykres>();
             WczytaneDane.wczytajKursyWaluta(d);
-            daneDoWykresu =new List<DaneWykres>(WczytaneDane.KURSY_WALUTA[d]);
+            daneDoWykresu = new List<DaneWykres>(WczytaneDane.KURSY_WALUTA[d]);
             LoadChartContents(daneDoWykresu);
         }
 
@@ -40,52 +40,49 @@ namespace Projektipm_1._0
             Random rand = new Random();
             List<FinancialStuff> financialStuffList = new List<FinancialStuff>();
             var liczba = wyniki.Count;
-            var step = Math.Round(liczba / 10.0);
+            var step = Math.Round(liczba/10.0);
             System.Diagnostics.Debug.WriteLine("oto");
             System.Diagnostics.Debug.WriteLine(step);
             int i = 0;
             int z = 0;
             foreach (DaneWykres it in wyniki)
             {
-                
-
                 if (i == 0 || i == liczba)
                 {
-                    financialStuffList.Add(new FinancialStuff() { Name = z.ToString(), Amount = it.value }); //ladnaData(it.data), Amount = it.value });
+                    financialStuffList.Add(new FinancialStuff() {Name = z.ToString(), Amount = it.value});
+                        //ladnaData(it.data), Amount = it.value });
                     System.Diagnostics.Debug.WriteLine("dodaj");
                 }
                 else
                 {
-                    financialStuffList.Add(new FinancialStuff() { Name = z.ToString(), Amount = it.value });
+                    financialStuffList.Add(new FinancialStuff() {Name = z.ToString(), Amount = it.value});
                 }
                 if (i == step) i = 0;
                 i++;
                 z++;
             }
-           
+
             (LineChart.Series[0] as LineSeries).ItemsSource = financialStuffList;
         }
 
         private string ladnaData(string it)
         {
-           
-                //System.Diagnostics.Debug.WriteLine(it);
-                //System.Diagnostics.Debug.WriteLine(it.Substring(5));
-                //WSZYSTKIE_DATY.Add(it);
+            //System.Diagnostics.Debug.WriteLine(it);
+            //System.Diagnostics.Debug.WriteLine(it.Substring(5));
+            //WSZYSTKIE_DATY.Add(it);
             string value = it.Substring(9) + "/" + it.Substring(7, 2) + "/20" + it.Substring(5, 2);
             //System.Diagnostics.Debug.WriteLine(value);
             return value;
-            
         }
 
         private void LoadChartContents()
         {
             Random rand = new Random();
             List<FinancialStuff> financialStuffList = new List<FinancialStuff>();
-            financialStuffList.Add(new FinancialStuff() { Name = "M", Amount = rand.Next(0, 200) });
-            financialStuffList.Add(new FinancialStuff() { Name = "A", Amount = rand.Next(0, 200) });
-            financialStuffList.Add(new FinancialStuff() { Name = "G", Amount = rand.Next(0, 200) });
-            financialStuffList.Add(new FinancialStuff() { Name = "B", Amount = rand.Next(0, 200) });
+            financialStuffList.Add(new FinancialStuff() {Name = "M", Amount = rand.Next(0, 200)});
+            financialStuffList.Add(new FinancialStuff() {Name = "A", Amount = rand.Next(0, 200)});
+            financialStuffList.Add(new FinancialStuff() {Name = "G", Amount = rand.Next(0, 200)});
+            financialStuffList.Add(new FinancialStuff() {Name = "B", Amount = rand.Next(0, 200)});
             (LineChart.Series[0] as LineSeries).ItemsSource = financialStuffList;
             //(LineChart.Series[0] as ISeries)..AxisX Label  = "Times(s)";
             //LineChart.ActualAxes..Axes..ChartAreas[0].Add(area);
@@ -99,7 +96,7 @@ namespace Projektipm_1._0
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            var tag = e.Parameter as String;
+            var tag = e.Parameter as string;
             //System.Diagnostics.Debug.WriteLine("piekny tag");
             //System.Diagnostics.Debug.WriteLine(tag);
             loadData(tag);

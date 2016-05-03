@@ -8,19 +8,20 @@
     mc:Ignorable="d">
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-        <ListView ItemsSource="{x:Bind datyKursow}">
+        <ListView ItemsSource="{x:Bind DatyKursow}">
             <ListView.ItemContainerStyle>
                 <Style TargetType="ListViewItem">
-                    <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                    <Setter Property="HorizontalContentAlignment" Value="Stretch" />
                 </Style>
             </ListView.ItemContainerStyle>
             <ListView.ItemTemplate>
                 <DataTemplate x:DataType="local:DataPro">
                     <Grid>
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*" />
                         </Grid.ColumnDefinitions>
-                        <TextBlock Tapped="dalekoJeszcze" Tag="{x:Bind index_data}"  Grid.Column="0" Text="{x:Bind ladna_data}"></TextBlock>
+                        <TextBlock Tapped="DalekoJeszcze" Tag="{x:Bind index_data}" Grid.Column="0"
+                                   Text="{x:Bind ladna_data}" />
                     </Grid>
                 </DataTemplate>
             </ListView.ItemTemplate>

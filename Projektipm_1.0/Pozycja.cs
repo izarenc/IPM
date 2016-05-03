@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Projektipm_1._0
+﻿namespace Projektipm_1._0
 {
     public class Pozycja
     {
@@ -19,6 +17,5 @@ namespace Projektipm_1._0
             kurs = d*b;
             kurs_oryginalny = d;
         }
-        
     }
 }
