@@ -48,7 +48,7 @@ namespace Projektipm_1._0
                 string data = iso_8859_2.GetString(byteData);
                 XDocument loadedData = XDocument.Parse(data);
                 var a = loadedData.Descendants("pozycja").Elements();
-                
+
                 IEnumerable<Pozycja> dane = from query in loadedData.Descendants("pozycja")
                     select new Pozycja(
                         mojaPierwszaFunkcjaWCudownymJezyku(query.Element("nazwa_waluty").Value),
@@ -60,7 +60,6 @@ namespace Projektipm_1._0
                 //var temp=new Pozycja("a", 0.5F, "b", 8.0F);
                 //pozycje.Add(temp);
                 //pozycje.Remove(temp);
-
             }
         }
 
@@ -75,7 +74,7 @@ namespace Projektipm_1._0
             //pozycje.Remove(temp);
             // wczytaj kursy
         }
-        
+
 
         private void NieWiemCoRobie(object sender, TappedRoutedEventArgs e)
         {

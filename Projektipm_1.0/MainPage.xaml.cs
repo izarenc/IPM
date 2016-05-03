@@ -12,7 +12,6 @@ namespace Projektipm_1._0
 {
     public sealed partial class MainPage : Page
     {
-       
         public MainPage()
         {
             InitializeComponent();
@@ -37,7 +36,7 @@ namespace Projektipm_1._0
 
         private void btnHistoria_Click(object sender, RoutedEventArgs e)
         {
-            container.Navigate(typeof(Root),this);
+            container.Navigate(typeof(Root), this);
         }
 
         private void btnShowPane_Click(object sender, RoutedEventArgs e)
@@ -70,5 +69,4 @@ namespace Projektipm_1._0
         public MainPage parameter1 { get; set; }
         public string parameter2 { get; set; }
     }
-
 }

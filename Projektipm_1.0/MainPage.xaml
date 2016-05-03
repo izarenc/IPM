@@ -10,59 +10,72 @@
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="0.2*"/>
+            <ColumnDefinition Width="0.2*" />
             <!--30% of screen * selfclosing what ever-->
-            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="1*" />
             <!--remaining 70%-->
         </Grid.ColumnDefinitions>
 
-        <Frame x:Name="container" Background="Purple" Grid.Column="1" >
-            <TextBlock x:Name="textBox" Grid.Column="1" HorizontalAlignment="Left" Margin="0,218.683,0,0" TextWrapping="Wrap" Text="Keep Calm and hate C#" VerticalAlignment="Top" RenderTransformOrigin="0.5,0.5" Height="44.173" UseLayoutRounding="False" Width="280.512" d:LayoutRounding="Auto" FontSize="24">
+        <Frame x:Name="container" Background="Purple" Grid.Column="1">
+            <TextBlock x:Name="textBox" Grid.Column="1" HorizontalAlignment="Left" Margin="0,218.683,0,0"
+                       TextWrapping="Wrap" Text="Keep Calm and hate C#" VerticalAlignment="Top"
+                       RenderTransformOrigin="0.5,0.5" Height="44.173" UseLayoutRounding="False" Width="280.512"
+                       d:LayoutRounding="Auto" FontSize="24">
                 <TextBlock.RenderTransform>
-                    <CompositeTransform Rotation="0.384" ScaleY="-1"/>
+                    <CompositeTransform Rotation="0.384" ScaleY="-1" />
                 </TextBlock.RenderTransform>
             </TextBlock>
         </Frame>
-        
+
         <!--<Frame x:Name="menu_container" Background="White" Grid.Column="0">
             <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">-->
-        <SplitView Grid.Column="0" Grid.ColumnSpan="2" x:Name="MySplitView" DisplayMode="CompactOverlay" IsPaneOpen="False" CompactPaneLength="50" 
-                           OpenPaneLength="200" Margin="0 0 0 0">
-                    <SplitView.Pane>
-                        <StackPanel Background="Purple">
-                            <Button x:Name="btnShowPane" FontFamily="Segoe MDL2 Assets" Content="&#xE8A9;" Width="50" Height="50" 
-                                    Background="Transparent" Click="btnShowPane_Click"/>
-                            <StackPanel Orientation="Horizontal">
-                                <Button x:Name="btnWaluta" FontFamily="Segoe MDL2 Assets" Content="&#xE8A1;" Width="50" Height="50" 
-                                        Background="Transparent" Click="btnWaluta_Click"/>
-                                <TextBlock Text="Historia waluty" FontSize="18" VerticalAlignment="Center" PointerPressed="btnWaluta_Click"/>
-                            </StackPanel>
-                            
-                            <StackPanel Orientation="Horizontal">
-                                <Button x:Name="btnHistoria" FontFamily="Segoe MDL2 Assets" Content="&#xE734;" Width="50" Height="50" 
-                                        Background="Transparent" Click="btnHistoria_Click"/>
-                                <TextBlock Text="Historia" FontSize="18" VerticalAlignment="Center" PointerPressed="btnHistoria_Click"/>
-                            </StackPanel>
+        <SplitView Grid.Column="0" Grid.ColumnSpan="2" x:Name="MySplitView" DisplayMode="CompactOverlay"
+                   IsPaneOpen="False" CompactPaneLength="50"
+                   OpenPaneLength="200" Margin="0 0 0 0">
+            <SplitView.Pane>
+                <StackPanel Background="Purple">
+                    <Button x:Name="btnShowPane" FontFamily="Segoe MDL2 Assets" Content="&#xE8A9;" Width="50"
+                            Height="50"
+                            Background="Transparent" Click="btnShowPane_Click" />
+                    <StackPanel Orientation="Horizontal">
+                        <Button x:Name="btnWaluta" FontFamily="Segoe MDL2 Assets" Content="&#xE8A1;" Width="50"
+                                Height="50"
+                                Background="Transparent" Click="btnWaluta_Click" />
+                        <TextBlock Text="Historia waluty" FontSize="18" VerticalAlignment="Center"
+                                   PointerPressed="btnWaluta_Click" />
+                    </StackPanel>
 
-                            <StackPanel Orientation="Horizontal">
-                                <Button x:Name="btnKursy" FontFamily="Segoe MDL2 Assets" Content="&#xE909;" Width="50" Height="50" 
-                                        Background="Transparent" Click="btnKursy_Click"/>
-                                <TextBlock Text="Średnie kursy" FontSize="18" VerticalAlignment="Center" PointerPressed="btnKursy_Click"/>
-                            </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <Button x:Name="btnHistoria" FontFamily="Segoe MDL2 Assets" Content="&#xE734;" Width="50"
+                                Height="50"
+                                Background="Transparent" Click="btnHistoria_Click" />
+                        <TextBlock Text="Historia" FontSize="18" VerticalAlignment="Center"
+                                   PointerPressed="btnHistoria_Click" />
+                    </StackPanel>
 
-                            <StackPanel Orientation="Horizontal">
-                                <Button x:Name="pobierzDane" FontFamily="Segoe MDL2 Assets" Content="&#xE896;" Width="50" Height="50" 
-                                                    Background="Transparent" Click="btnPobierz_Click"/>
-                                <TextBlock Text="Pobierz dane" FontSize="18" VerticalAlignment="Center" PointerPressed="btnKursy_Click"/>
-                            </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <Button x:Name="btnKursy" FontFamily="Segoe MDL2 Assets" Content="&#xE909;" Width="50"
+                                Height="50"
+                                Background="Transparent" Click="btnKursy_Click" />
+                        <TextBlock Text="Średnie kursy" FontSize="18" VerticalAlignment="Center"
+                                   PointerPressed="btnKursy_Click" />
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal">
+                        <Button x:Name="pobierzDane" FontFamily="Segoe MDL2 Assets" Content="&#xE896;" Width="50"
+                                Height="50"
+                                Background="Transparent" Click="btnPobierz_Click" />
+                        <TextBlock Text="Pobierz dane" FontSize="18" VerticalAlignment="Center"
+                                   PointerPressed="btnKursy_Click" />
+                    </StackPanel>
                 </StackPanel>
-                    </SplitView.Pane>
-                </SplitView>
-            <!--</Grid>
+            </SplitView.Pane>
+        </SplitView>
+        <!--</Grid>
         </Frame>-->
-        
+
 
     </Grid>
 
-    
+
 </Page>
