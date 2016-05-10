@@ -20,7 +20,7 @@
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*" />
                         </Grid.ColumnDefinitions>
-                        <TextBlock Tapped="DalekoJeszcze" Tag="{x:Bind index_data}" Grid.Column="0"
+                        <TextBlock Tapped="TappedDateHandler" Tag="{x:Bind index_data}" Grid.Column="0"
                                    Text="{x:Bind ladna_data}" />
                     </Grid>
                 </DataTemplate>

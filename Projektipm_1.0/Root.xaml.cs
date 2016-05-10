@@ -7,6 +7,7 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Navigation;
 using System.Net.Http;
 using System.Text;
+using System.Threading.Tasks;
 using System.Xml.Linq;
 
 
@@ -18,8 +19,8 @@ namespace Projektipm_1._0
 
         public Root()
         {
-            this.InitializeComponent();
-            funkcja();
+            InitializeComponent();
+            //funkcja();
         }
 
         public static string mojaPierwszaFunkcjaWCudownymJezyku(string s)
@@ -29,6 +30,7 @@ namespace Projektipm_1._0
 
         private async void funkcja()
         {
+            System.Diagnostics.Debug.WriteLine("pusta funkcja");
             Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
             string path = "http://www.nbp.pl/kursy/xml/LastA.xml";
             HttpClient client = new HttpClient();
@@ -48,25 +50,26 @@ namespace Projektipm_1._0
                         query.Element("kod_waluty").Value,
                         float.Parse(query.Element("kurs_sredni").Value.Replace(",", "."))
                         );
-                pozycje = new ObservableCollection<Pozycja>(dane);
-                //var temp=new Pozycja("a", 0.5F, "b", 8.0F);
-                //pozycje.Add(temp);
-                //pozycje.Remove(temp);
+
+                foreach (var i in dane)
+                {
+                    pozycje.Add(i);
+                }
+                System.Diagnostics.Debug.WriteLine("pozycje"+pozycje.Count);
             }
         }
 
-        private async void funkcja(string adr)
+        private void funkcja(string adr)
         {
+            System.Diagnostics.Debug.WriteLine("funkcja"+adr);
             DateTime datunia = DateTime.Parse(adr.Substring(9) + "." + adr.Substring(7, 2) + ".20" + adr.Substring(5, 2));
             WczytaneDane.wczytajKursData(adr);
+            //task.Wait();
             pozycje = WczytaneDane.KURSY_DATA[datunia];
 
-            //var temp = new Pozycja("a", 0.5F, "b", 8.0F);
-            //pozycje.Add(temp);
-            //pozycje.Remove(temp);
-            // wczytaj kursy
+            System.Diagnostics.Debug.WriteLine("wczytane" + WczytaneDane.KURSY_DATA[datunia].Count);
+            System.Diagnostics.Debug.WriteLine("pozycje" + pozycje.Count);
         }
-
 
         private void NieWiemCoRobie(object sender, TappedRoutedEventArgs e)
         {
@@ -77,6 +80,7 @@ namespace Projektipm_1._0
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
+            
             var adr = e.Parameter as string;
             System.Diagnostics.Debug.WriteLine("parametr: " + adr);
             if (string.IsNullOrEmpty(adr))

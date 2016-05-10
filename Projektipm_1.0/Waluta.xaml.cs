@@ -2,110 +2,98 @@
 using System.Collections.Generic;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
+using Syncfusion.UI.Xaml.Controls;
 using WinRTXamlToolkit.Controls.DataVisualization.Charting;
-
-
-// The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234238
 
 namespace Projektipm_1._0
 {
-    /// <summary>
-    /// An empty page that can be used on its own or navigated to within a Frame.
-    /// </summary>
-    public sealed partial class Waluta : Page
+    public partial class Waluta : Page
     {
+        private string aktualnyKurs = "EUR";
+
         public Waluta()
         {
-            this.InitializeComponent();
-            //this.Loaded += MainChart_Loaded;
-            loadData("EUR");
+            InitializeComponent();
         }
 
         public async void loadData(string d)
         {
-            textBlock.Text = "Historia waluty " + (string) d;
-            List<DaneWykres> daneDoWykresu = new List<DaneWykres>();
-            WczytaneDane.wczytajKursyWaluta(d);
-            daneDoWykresu = new List<DaneWykres>(WczytaneDane.KURSY_WALUTA[d]);
-            LoadChartContents(daneDoWykresu);
+            BiezacaWaluta.Text = "Historia waluty " + (string)d;
+            await WczytaneDane.wczytajKursyWaluta(d);
+            //LoadChartContents(WczytaneDane.KURSY_WALUTA[d]);
+            (LineChart.Series[0] as LineSeries).ItemsSource = WczytaneDane.KURSY_WALUTA[d];
         }
 
-        //void MainChart_Loaded(object sender, RoutedEventArgs e)
-        //{
-        //    LoadChartContents();
-        //}
-
-        private void LoadChartContents(List<DaneWykres> wyniki)
+        private void LoadChartContents(DateTime f, DateTime t )
         {
-            Random rand = new Random();
-            List<FinancialStuff> financialStuffList = new List<FinancialStuff>();
-            var liczba = wyniki.Count;
-            var step = Math.Round(liczba/10.0);
-            System.Diagnostics.Debug.WriteLine("oto");
-            System.Diagnostics.Debug.WriteLine(step);
-            int i = 0;
-            int z = 0;
-            foreach (DaneWykres it in wyniki)
+            List<DaneWykres> temp = new List<DaneWykres>();
+            foreach (DaneWykres it in WczytaneDane.KURSY_WALUTA[aktualnyKurs])
             {
-                if (i == 0 || i == liczba)
+                if (f <= it.data & it.data <= t)
                 {
-                    financialStuffList.Add(new FinancialStuff() {Name = z.ToString(), Amount = it.value});
-                        //ladnaData(it.data), Amount = it.value });
-                    System.Diagnostics.Debug.WriteLine("dodaj");
-                }
-                else
-                {
-                    financialStuffList.Add(new FinancialStuff() {Name = z.ToString(), Amount = it.value});
-                }
-                if (i == step) i = 0;
-                i++;
-                z++;
+                    temp.Add(it); 
+                }  
             }
-
-            (LineChart.Series[0] as LineSeries).ItemsSource = financialStuffList;
-        }
-
-        private string ladnaData(string it)
-        {
-            //System.Diagnostics.Debug.WriteLine(it);
-            //System.Diagnostics.Debug.WriteLine(it.Substring(5));
-            //WSZYSTKIE_DATY.Add(it);
-            string value = it.Substring(9) + "/" + it.Substring(7, 2) + "/20" + it.Substring(5, 2);
-            //System.Diagnostics.Debug.WriteLine(value);
-            return value;
-        }
-
-        private void LoadChartContents()
-        {
-            Random rand = new Random();
-            List<FinancialStuff> financialStuffList = new List<FinancialStuff>();
-            financialStuffList.Add(new FinancialStuff() {Name = "M", Amount = rand.Next(0, 200)});
-            financialStuffList.Add(new FinancialStuff() {Name = "A", Amount = rand.Next(0, 200)});
-            financialStuffList.Add(new FinancialStuff() {Name = "G", Amount = rand.Next(0, 200)});
-            financialStuffList.Add(new FinancialStuff() {Name = "B", Amount = rand.Next(0, 200)});
-            (LineChart.Series[0] as LineSeries).ItemsSource = financialStuffList;
-            //(LineChart.Series[0] as ISeries)..AxisX Label  = "Times(s)";
-            //LineChart.ActualAxes..Axes..ChartAreas[0].Add(area);
-            //LineChart.ChartAreas["Default"].AxisY.LabelStyle.Format = "C";
-            //LineChart.Series[0].itLegendItems.
-            //var chart = new Chart();
-            //chart.Series[0].ax.Points[0].AxisLabel = "First Point";
-            //chart..ChartAreas.
-            //(LineChart.Series[0] as LineSeries).Po
+            (LineChart.Series[0] as LineSeries).ItemsSource = temp;
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            var tag = e.Parameter as string;
-            //System.Diagnostics.Debug.WriteLine("piekny tag");
-            //System.Diagnostics.Debug.WriteLine(tag);
-            loadData(tag);
+            
+            var adr = e.Parameter as string;
+            System.Diagnostics.Debug.WriteLine("parametr: " + adr);
+            if (string.IsNullOrEmpty(adr))
+            {
+                loadData("EUR");
+            }
+            else
+            {
+                WczytaneDane.wczytajKursData(adr);
+                loadData(adr);
+                aktualnyKurs = adr;
+            }
+
+        }
+
+        private void CalendarHandler(CalendarDatePicker sender, CalendarDatePickerDateChangedEventArgs args)
+        {
+            System.Diagnostics.Debug.WriteLine(CalendarFrom.Date+"paramet" + CalendarTo.Date);
+            if (CalendarFrom.Date.Equals(null) | CalendarTo.Date.Equals(null)) return;
+            if (CalendarFrom.Date >= CalendarTo.Date)
+            {
+                MessageText.Text = "Data początkowa musi być wcześniejsza niż końcowa";
+                return;
+            }
+            DateTime s = CalendarFrom.Date.ToDateTime();
+            TimeSpan ts = new TimeSpan(0, 0, 0);
+            s = s.Date + ts;
+
+            foreach (DataPro it in WczytaneDane.DATY_KURSOW)
+            {
+                if (it.data_data.Equals(s)) goto spelnionyWarunek1;
+            }
+            MessageText.Text = "Taka data początkowa nie została wczytana";
+            return;
+
+            spelnionyWarunek1:
+
+            s = CalendarTo.Date.ToDateTime();
+            s = s.Date + ts;
+
+            foreach (DataPro it in WczytaneDane.DATY_KURSOW)
+            {
+                if (it.data_data.Equals(s)) goto spelnionyWarunek2;
+            }
+            MessageText.Text = "Taka data końcowa nie została wczytana";
+            return;
+
+            spelnionyWarunek2:
+
+            MessageText.Text = "";
+            System.Diagnostics.Debug.WriteLine("Brawo, wybrałeś poprawne daty");
+            LoadChartContents(CalendarFrom.Date.ToDateTime(), CalendarTo.Date.ToDateTime());
+
         }
     }
 
-    public class FinancialStuff
-    {
-        public string Name { get; set; }
-        public float Amount { get; set; }
-    }
 }

@@ -26,29 +26,19 @@ namespace Projektipm_1._0
             if (!WczytaneDane.daty_kursow)
             {
                 WczytaneDane.wczytajDaneNaglowkow();
-
-                System.Diagnostics.Debug.WriteLine("else");
-                System.Diagnostics.Debug.WriteLine(WczytaneDane.DATY_KURSOW.Count);
             }
-            foreach (var i in WczytaneDane.DATY_KURSOW.Reverse())
-            {
-                DatyKursow.Add(i);
-            }
+            //foreach (var i in WczytaneDane.DATY_KURSOW.Reverse())
+            //{
+            //    DatyKursow.Add(i);
+            //}
+            DatyKursow = new ObservableCollection<DataPro>(WczytaneDane.DATY_KURSOW.Reverse());
         }
 
-        private void DalekoJeszcze(object sender, TappedRoutedEventArgs e)
+        private void TappedDateHandler(object sender, TappedRoutedEventArgs e)
         {
-            //System.Diagnostics.Debug.WriteLine((sender as TextBlock).Tag.ToString());
             var textBlock = sender as TextBlock;
             if (textBlock != null)
                 Frame.Navigate(typeof(Root), textBlock.Tag.ToString());
         }
-
-        ////override
-        //protected override void OnNavigatedTo(NavigationEventArgs e)
-        //{
-        //    //this.parent = e.Parameter as MainPage;
-        //    funkcja(); //??
-        //}
     }
 }

@@ -16,16 +16,19 @@ namespace Projektipm_1._0
 
         public static ObservableCollection<DataPro> DATY_KURSOW = new ObservableCollection<DataPro>();
             //zbindowane w xaml: ładna data + indeks + data data4
+            // nagłówki
 
         public static Dictionary<DateTime, ObservableCollection<Pozycja>> KURSY_DATA =
             new Dictionary<DateTime, ObservableCollection<Pozycja>>();
+        //kursy w danej dacie
 
         public static Dictionary<string, List<DaneWykres>> KURSY_WALUTA = new Dictionary<string, List<DaneWykres>>();
+        //kursy waluty for ever
 
         public static async void wczytajWszystkieDane()
         {
             if (!daty_kursow) await wczytajDaneNaglowkow();
-            if (!kursy) await wczytajKursy();
+            if (!kursy) wczytajKursy();
         }
 
         public static async Task wczytajDaneNaglowkow()
@@ -51,32 +54,36 @@ namespace Projektipm_1._0
                                 DateTime.Parse(it.Substring(9) + "." + it.Substring(7, 2) + ".20" + it.Substring(5, 2))));
                     }
                 }
-                //DATY_KURSOW[0].NotifyPropertyChanged("ladna_data");
             }
             System.Diagnostics.Debug.WriteLine("Wczytano nagłówki plików xml");
         }
 
+        private static async Task<XDocument> Buble(string page)
+        {
+
+            using (HttpClient client2 = new HttpClient())
+            {
+                var byteData = await client2.GetByteArrayAsync(page);
+                Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
+                Encoding iso_8859_2 = Encoding.GetEncoding(1252); //"ISO-8859-2");
+                string data = iso_8859_2.GetString(byteData);
+                return XDocument.Parse(data);
+            }
+        }
+
         public static async Task wczytajKursy()
         {
-            System.Diagnostics.Debug.WriteLine("Wczytuje kursy!");
             kursy = true;
-
+            System.Diagnostics.Debug.WriteLine("Wczytuje wszystkie kursy!!!!!!!!!!!!!");
             foreach (var it in WczytaneDane.DATY_KURSOW)
             {
                 string page = "http://www.nbp.pl/kursy/xml/" + it.index_data + ".xml";
 
-                using (HttpClient client2 = new HttpClient())
+                var res =  Buble(page);
+                //await res;
+                XDocument loadedData = res.Result;
 
-                {
-                    var byteData = await client2.GetByteArrayAsync(page);
-                    Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
-                    Encoding iso_8859_2 = Encoding.GetEncoding(1252); //"ISO-8859-2");
-                    string data = iso_8859_2.GetString(byteData);
-                    XDocument loadedData = XDocument.Parse(data);
-                    var a = loadedData.Descendants("pozycja").Elements();
-
-                    IEnumerable<InputData> dane = from query in loadedData.Descendants("pozycja")
-                        //where (string)query.Element("kod_waluty") == d
+                IEnumerable<InputData> dane = from query in loadedData.Descendants("pozycja")
                         select new InputData((string) query.Element("kod_waluty"), it.data_data,
                             float.Parse(query.Element("kurs_sredni").Value.Replace(",", ".")),
                             query.Element("nazwa_waluty").Value, float.Parse(query.Element("przelicznik").Value));
@@ -92,9 +99,9 @@ namespace Projektipm_1._0
 
                         KURSY_DATA[item.data].Add(new Pozycja(item.nazwa, item.przelicznik, item.index, item.value));
                     }
-                }
+                
             }
-            System.Diagnostics.Debug.WriteLine("Wczytano wszystkie dane!");
+            System.Diagnostics.Debug.WriteLine("Wczytano wszystkie dane!!!!!!!!!!!");
         }
 
         public static async Task wczytajKursData(string adr)
@@ -102,6 +109,7 @@ namespace Projektipm_1._0
             DateTime datunia = DateTime.Parse(adr.Substring(9) + "." + adr.Substring(7, 2) + ".20" + adr.Substring(5, 2));
 
             if (KURSY_DATA.ContainsKey(datunia)) return;
+            System.Diagnostics.Debug.WriteLine("nie ma datuni, ecczytuje");
             KURSY_DATA.Add(datunia, new ObservableCollection<Pozycja>());
 
             System.Diagnostics.Debug.WriteLine("Wczytuje kurs data" + adr);
@@ -125,16 +133,15 @@ namespace Projektipm_1._0
                         query.Element("kod_waluty").Value,
                         float.Parse(query.Element("kurs_sredni").Value.Replace(",", "."))
                         );
-                KURSY_DATA[datunia] = new ObservableCollection<Pozycja>(dane);
-                //foreach (Pozycja item in dane)
-                //{
-                //    KURSY_DATA[datunia].Add(item);
-                //}
+                foreach (Pozycja item in dane)
+                {
+                    KURSY_DATA[datunia].Add(item);
+                }
             }
             System.Diagnostics.Debug.WriteLine("Wczytano kurs");
         }
 
-        public static async void wczytajKursyWaluta(string adr)
+        public static async Task wczytajKursyWaluta(string adr)
         {
             if (KURSY_WALUTA.ContainsKey(adr)) return;
             KURSY_WALUTA.Add(adr, new List<DaneWykres>());
@@ -161,7 +168,12 @@ namespace Projektipm_1._0
                             new DaneWykres(float.Parse(query.Element("kurs_sredni").Value.Replace(",", ".")),
                                 it.data_data);
 
-                    KURSY_WALUTA[adr] = new List<DaneWykres>(dane);
+                    if (!KURSY_WALUTA.ContainsKey(adr)) KURSY_WALUTA.Add(adr, new List<DaneWykres>());
+
+                    foreach (DaneWykres item in dane)
+                    {
+                        KURSY_WALUTA[adr].Add(item);
+                    }
                 }
             }
             System.Diagnostics.Debug.WriteLine("Wczytano kurs!");
