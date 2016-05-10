@@ -22,10 +22,13 @@
         </Charting:Chart>
 
 
-        <CalendarDatePicker Name="CalendarTo" DateChanged="CalendarHandler"  HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,40,60" Width="127"
+        <CalendarDatePicker Name="CalendarTo" DateChanged="CalendarHandler"  HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,50,60" Width="127"
                             Height="32" />
-        <CalendarDatePicker Name="CalendarFrom" DateChanged="CalendarHandler"  HorizontalAlignment="Left" Margin="40,0,0,60" VerticalAlignment="Bottom" Width="127"
+        <CalendarDatePicker Name="CalendarFrom" DateChanged="CalendarHandler"  HorizontalAlignment="Left" Margin="30,0,0,60" VerticalAlignment="Bottom" Width="127"
                             Height="32" />
+
+        <Button x:Name="btnSave" FontFamily="Segoe MDL2 Assets" Content="&#xE74E;" Width="50" Height="50" Background="Transparent" Click="btnSave_Click" Margin="0,0,0,50" VerticalAlignment="Bottom" HorizontalAlignment="Right" />
+
         <TextBlock x:Name="MessageText" HorizontalAlignment="Left" Margin="50,0,0,20" TextWrapping="Wrap" VerticalAlignment="Bottom"/>
     </Grid>
 </Page>

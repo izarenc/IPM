@@ -8,7 +8,7 @@ namespace Projektipm_1._0
         public MainPage()
         {
             InitializeComponent();
-            //Przechowalnia.initialize();
+            Przechowalnia.initialize();
             this.Loaded += MainPage_Loaded;
             //funkcja();
         }

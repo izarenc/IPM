@@ -33,9 +33,10 @@ namespace Projektipm_1._0
             System.Diagnostics.Debug.WriteLine("pusta funkcja");
             Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
             string path;
-            var aa = Przechowalnia.getRootData();
-            if (Przechowalnia.getRootData()==null) path = "http://www.nbp.pl/kursy/xml/LastA.xml";
-            else path = "http://www.nbp.pl/kursy/xml/" + Przechowalnia.getRootData() + ".xml";
+            //var aa = Przechowalnia.getRootData();
+            //if (Przechowalnia.getRootData()==null) path = "http://www.nbp.pl/kursy/xml/LastA.xml";
+            path = "http://www.nbp.pl/kursy/xml/LastA.xml";
+            //else path = "http://www.nbp.pl/kursy/xml/" + Przechowalnia.getRootData() + ".xml";
             HttpClient client = new HttpClient();
             HttpResponseMessage response2 = await client.GetAsync(path);
             HttpContent content2 = response2.Content;
@@ -66,7 +67,7 @@ namespace Projektipm_1._0
         {
             System.Diagnostics.Debug.WriteLine("funkcja"+adr);
             DateTime datunia = DateTime.Parse(adr.Substring(9) + "." + adr.Substring(7, 2) + ".20" + adr.Substring(5, 2));
-            Przechowalnia.setRootData(adr);
+            //Przechowalnia.setRootData(adr);
             WczytaneDane.wczytajKursData(adr);
             pozycje = WczytaneDane.KURSY_DATA[datunia];
 

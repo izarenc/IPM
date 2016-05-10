@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
 using Syncfusion.UI.Xaml.Controls;
@@ -26,8 +27,6 @@ namespace Projektipm_1._0
 
         private void LoadChartContents(DateTime f, DateTime t )
         {
-            Przechowalnia.setWalutaFrom(f);
-            Przechowalnia.setWalutaTo(t);
             List<DaneWykres> temp = new List<DaneWykres>();
             foreach (DaneWykres it in WczytaneDane.KURSY_WALUTA[aktualnyKurs])
             {
@@ -46,19 +45,12 @@ namespace Projektipm_1._0
             System.Diagnostics.Debug.WriteLine("parametr: " + adr);
             if (string.IsNullOrEmpty(adr))
             {
-                if (Przechowalnia.getWalutaTag() == null) loadData("EUR");
-                else loadData(Przechowalnia.getWalutaTag());
-                var d = new DateTime(0001,1,1);
-                var c = Przechowalnia.getWalutaFrom();
-                //var b = DateTime.Compare(Przechowalnia.getWalutaFrom(),d);
-                //if (Przechowalnia.getWalutaFrom().Equals(d) & Przechowalnia.getWalutaFrom().Equals(d))
-                var r = 5;
-                    //LoadChartContents(Przechowalnia.getWalutaFrom(),Przechowalnia.getWalutaTo());
+                loadData("EUR");
             }
             else
             {
                 WczytaneDane.wczytajKursData(adr);
-                Przechowalnia.setWalutaTag(adr);
+                //Przechowalnia.setWalutaTag(adr);
                 loadData(adr);
                 aktualnyKurs = adr;
             }
@@ -103,6 +95,14 @@ namespace Projektipm_1._0
             System.Diagnostics.Debug.WriteLine("Brawo, wybrałeś poprawne daty");
             LoadChartContents(CalendarFrom.Date.ToDateTime(), CalendarTo.Date.ToDateTime());
 
+        }
+
+        private void btnSave_Click(object sender, RoutedEventArgs e)
+        {
+            //SaveFileDialog saveFileDialog1 = new SaveFileDialog();
+            
+            //saveFileDialog1.Title = "Save an Image File";
+            //saveFileDialog1.ShowDialog();
         }
     }
 
