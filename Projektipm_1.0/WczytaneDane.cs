@@ -58,9 +58,8 @@ namespace Projektipm_1._0
             System.Diagnostics.Debug.WriteLine("Wczytano nagłówki plików xml");
         }
 
-        private static async Task<XDocument> Buble(string page)
+        private static async Task<XDocument> WczytajXML(string page)
         {
-
             using (HttpClient client2 = new HttpClient())
             {
                 var byteData = await client2.GetByteArrayAsync(page);
@@ -74,17 +73,16 @@ namespace Projektipm_1._0
         public static async Task wczytajKursy()
         {
             kursy = true;
-            System.Diagnostics.Debug.WriteLine("Wczytuje wszystkie kursy!!!!!!!!!!!!!");
             foreach (var it in WczytaneDane.DATY_KURSOW)
             {
-                string page = "http://www.nbp.pl/kursy/xml/" + it.index_data + ".xml";
+                string page = "http://www.nbp.pl/kursy/xml/" + it.IndexData + ".xml";
 
-                var res =  Buble(page);
-                //await res;
+                var res =  WczytajXML(page);
+                await res;
                 XDocument loadedData = res.Result;
 
                 IEnumerable<InputData> dane = from query in loadedData.Descendants("pozycja")
-                        select new InputData((string) query.Element("kod_waluty"), it.data_data,
+                        select new InputData((string) query.Element("kod_waluty"), it.DataData,
                             float.Parse(query.Element("kurs_sredni").Value.Replace(",", ".")),
                             query.Element("nazwa_waluty").Value, float.Parse(query.Element("przelicznik").Value));
 
@@ -116,19 +114,16 @@ namespace Projektipm_1._0
 
             string page = "http://www.nbp.pl/kursy/xml/" + adr + ".xml";
 
-            using (HttpClient client2 = new HttpClient())
 
-            {
-                var byteData = await client2.GetByteArrayAsync(page);
-                Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
-                Encoding iso_8859_2 = Encoding.GetEncoding(1252); //"ISO-8859-2");
-                string data = iso_8859_2.GetString(byteData);
-                XDocument loadedData = XDocument.Parse(data);
-                var a = loadedData.Descendants("pozycja").Elements();
+            var res = WczytajXML(page);
+            await res;
+            XDocument loadedData = res.Result;
+
+            //var a = loadedData.Descendants("pozycja").Elements();
 
                 IEnumerable<Pozycja> dane = from query in loadedData.Descendants("pozycja")
                     select new Pozycja(
-                        mojaPierwszaFunkcjaWCudownymJezyku(query.Element("nazwa_waluty").Value),
+                        przeksztalc(query.Element("nazwa_waluty").Value),
                         float.Parse(query.Element("przelicznik").Value),
                         query.Element("kod_waluty").Value,
                         float.Parse(query.Element("kurs_sredni").Value.Replace(",", "."))
@@ -137,7 +132,7 @@ namespace Projektipm_1._0
                 {
                     KURSY_DATA[datunia].Add(item);
                 }
-            }
+            
             System.Diagnostics.Debug.WriteLine("Wczytano kurs");
         }
 
@@ -150,23 +145,19 @@ namespace Projektipm_1._0
             if (!daty_kursow) await wczytajDaneNaglowkow();
             foreach (var it in WczytaneDane.DATY_KURSOW)
             {
-                string page = "http://www.nbp.pl/kursy/xml/" + it.index_data + ".xml";
+                string page = "http://www.nbp.pl/kursy/xml/" + it.IndexData + ".xml";
 
-                using (HttpClient client2 = new HttpClient())
-
-                {
-                    var byteData = await client2.GetByteArrayAsync(page);
-                    Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
-                    Encoding iso_8859_2 = Encoding.GetEncoding(1252); //"ISO-8859-2");
-                    string data = iso_8859_2.GetString(byteData);
-                    XDocument loadedData = XDocument.Parse(data);
-                    var a = loadedData.Descendants("pozycja").Elements();
+                var res = WczytajXML(page);
+                await res;
+                XDocument loadedData = res.Result;
+   
+                    //var a = loadedData.Descendants("pozycja").Elements();
 
                     IEnumerable<DaneWykres> dane = from query in loadedData.Descendants("pozycja")
                         where (string) query.Element("kod_waluty") == adr
                         select
                             new DaneWykres(float.Parse(query.Element("kurs_sredni").Value.Replace(",", ".")),
-                                it.data_data);
+                                it.DataData);
 
                     if (!KURSY_WALUTA.ContainsKey(adr)) KURSY_WALUTA.Add(adr, new List<DaneWykres>());
 
@@ -174,12 +165,12 @@ namespace Projektipm_1._0
                     {
                         KURSY_WALUTA[adr].Add(item);
                     }
-                }
+                
             }
             System.Diagnostics.Debug.WriteLine("Wczytano kurs!");
         }
 
-        public static string mojaPierwszaFunkcjaWCudownymJezyku(string s)
+        public static string przeksztalc(string s)
         {
             return s.Remove(1).ToUpper() + s.Substring(1);
         }

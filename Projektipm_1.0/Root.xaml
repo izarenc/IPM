@@ -24,10 +24,10 @@
                             <ColumnDefinition Width="*" />
                             <ColumnDefinition Width="*" />
                         </Grid.ColumnDefinitions>
-                        <TextBlock Tapped="NieWiemCoRobie" Tag="{x:Bind kod}" Grid.Column="0" Text="{x:Bind nazwa}" />
+                        <TextBlock Tapped="TappedHandler" Tag="{x:Bind kod}" Grid.Column="0" Text="{x:Bind nazwa}" />
                         <!--  <TextBlock Grid.Column="1" Text="{x:Bind przelicznik}"></TextBlock> TAK KOMENTARZ KTORY WYMAGA WKLEPANIA 7 ZNAKOW TO JEST TO! az sie komentowac odechciewa-->
-                        <TextBlock Tapped="NieWiemCoRobie" Tag="{x:Bind kod}" Grid.Column="1" Text="{x:Bind kod}" />
-                        <TextBlock Tapped="NieWiemCoRobie" Tag="{x:Bind kod}" Grid.Column="2" Text="{x:Bind kurs}" />
+                        <TextBlock Tapped="TappedHandler" Tag="{x:Bind kod}" Grid.Column="1" Text="{x:Bind kod}" />
+                        <TextBlock Tapped="TappedHandler" Tag="{x:Bind kod}" Grid.Column="2" Text="{x:Bind kurs}" />
                     </Grid>
                 </DataTemplate>
             </ListView.ItemTemplate>

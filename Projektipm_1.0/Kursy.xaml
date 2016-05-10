@@ -20,8 +20,8 @@
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*" />
                         </Grid.ColumnDefinitions>
-                        <TextBlock Tapped="TappedDateHandler" Tag="{x:Bind index_data}" Grid.Column="0"
-                                   Text="{x:Bind ladna_data}" />
+                        <TextBlock Tapped="TappedDateHandler" Tag="{x:Bind IndexData}" Grid.Column="0"
+                                   Text="{x:Bind LadnaData}" />
                     </Grid>
                 </DataTemplate>
             </ListView.ItemTemplate>

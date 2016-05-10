@@ -26,6 +26,8 @@ namespace Projektipm_1._0
 
         private void LoadChartContents(DateTime f, DateTime t )
         {
+            Przechowalnia.setWalutaFrom(f);
+            Przechowalnia.setWalutaTo(t);
             List<DaneWykres> temp = new List<DaneWykres>();
             foreach (DaneWykres it in WczytaneDane.KURSY_WALUTA[aktualnyKurs])
             {
@@ -44,11 +46,19 @@ namespace Projektipm_1._0
             System.Diagnostics.Debug.WriteLine("parametr: " + adr);
             if (string.IsNullOrEmpty(adr))
             {
-                loadData("EUR");
+                if (Przechowalnia.getWalutaTag() == null) loadData("EUR");
+                else loadData(Przechowalnia.getWalutaTag());
+                var d = new DateTime(0001,1,1);
+                var c = Przechowalnia.getWalutaFrom();
+                //var b = DateTime.Compare(Przechowalnia.getWalutaFrom(),d);
+                //if (Przechowalnia.getWalutaFrom().Equals(d) & Przechowalnia.getWalutaFrom().Equals(d))
+                var r = 5;
+                    //LoadChartContents(Przechowalnia.getWalutaFrom(),Przechowalnia.getWalutaTo());
             }
             else
             {
                 WczytaneDane.wczytajKursData(adr);
+                Przechowalnia.setWalutaTag(adr);
                 loadData(adr);
                 aktualnyKurs = adr;
             }
@@ -70,7 +80,7 @@ namespace Projektipm_1._0
 
             foreach (DataPro it in WczytaneDane.DATY_KURSOW)
             {
-                if (it.data_data.Equals(s)) goto spelnionyWarunek1;
+                if (it.DataData.Equals(s)) goto spelnionyWarunek1;
             }
             MessageText.Text = "Taka data początkowa nie została wczytana";
             return;
@@ -82,7 +92,7 @@ namespace Projektipm_1._0
 
             foreach (DataPro it in WczytaneDane.DATY_KURSOW)
             {
-                if (it.data_data.Equals(s)) goto spelnionyWarunek2;
+                if (it.DataData.Equals(s)) goto spelnionyWarunek2;
             }
             MessageText.Text = "Taka data końcowa nie została wczytana";
             return;

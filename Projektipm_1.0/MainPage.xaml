@@ -49,7 +49,7 @@
                         <Button x:Name="btnHistoria" FontFamily="Segoe MDL2 Assets" Content="&#xE734;" Width="50"
                                 Height="50"
                                 Background="Transparent" Click="btnHistoria_Click" />
-                        <TextBlock Text="Historia" FontSize="18" VerticalAlignment="Center"
+                        <TextBlock Text="Średnie kursy" FontSize="18" VerticalAlignment="Center"
                                    PointerPressed="btnHistoria_Click" />
                     </StackPanel>
 
@@ -57,7 +57,7 @@
                         <Button x:Name="btnKursy" FontFamily="Segoe MDL2 Assets" Content="&#xE909;" Width="50"
                                 Height="50"
                                 Background="Transparent" Click="btnKursy_Click" />
-                        <TextBlock Text="Średnie kursy" FontSize="18" VerticalAlignment="Center"
+                        <TextBlock Text="Wczytane daty" FontSize="18" VerticalAlignment="Center"
                                    PointerPressed="btnKursy_Click" />
                     </StackPanel>
 

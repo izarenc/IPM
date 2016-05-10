@@ -27,10 +27,6 @@ namespace Projektipm_1._0
             {
                 WczytaneDane.wczytajDaneNaglowkow();
             }
-            //foreach (var i in WczytaneDane.DATY_KURSOW.Reverse())
-            //{
-            //    DatyKursow.Add(i);
-            //}
             DatyKursow = new ObservableCollection<DataPro>(WczytaneDane.DATY_KURSOW.Reverse());
         }
 
